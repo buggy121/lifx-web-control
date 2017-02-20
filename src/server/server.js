@@ -4,14 +4,14 @@
 'use strict';
 
 import Koa from 'koa';
-import routes from './lib/routes';
-
-
+import KoaStatic from 'koa-static';
+import routes from './lib/routes.jsx';
 
 class Server {
     start() {
         var app = new Koa();
 
+        app.use(KoaStatic('./dist/client/'));
         app.use(routes);
 
         app.listen(3001);

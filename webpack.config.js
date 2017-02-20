@@ -15,10 +15,12 @@ fs.readdirSync('node_modules')
 
 module.exports = [
     {
-        entry: './src/client/client.js',
+        entry: {
+            client: ['./src/client/client.js'],
+        },
         output: {
             path: './dist/client',
-            filename: 'client.js'
+            filename: '[name].js'
         },
         module: {
             loaders: [
@@ -28,6 +30,14 @@ module.exports = [
                     loader: 'babel-loader',
                     query: {
                         presets: ['es2015']
+                    }
+                },
+                {
+                    test: /\.jsx$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015', 'stage-2', 'react']
                     }
                 }
             ]
@@ -51,6 +61,14 @@ module.exports = [
                     loader: 'babel-loader',
                     query: {
                         presets: ['es2015', 'stage-2']
+                    }
+                },
+                {
+                    test: /\.jsx$/,
+                    exclude: /node_modules/,
+                    loader: 'babel-loader',
+                    query: {
+                        presets: ['es2015', 'stage-2', 'react']
                     }
                 }
             ]
