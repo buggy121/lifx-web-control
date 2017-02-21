@@ -8,6 +8,8 @@ import React from 'react';
 import ReactDOMServer from 'react-dom/server';
 import {match, RouterContext} from 'react-router';
 import clientRoutes from '../../client/jsx/routes.jsx';
+import {Provider} from 'react-redux';
+import store from './store';
 
 var router = new Router();
 
@@ -22,16 +24,15 @@ router.get('*', ErrorHandler.actionInit, function*(next) {
     match({
         routes: clientRoutes,
         location: this.url
-    }, function(error, redirectLocation, renderProps) {
-        if(error) {
+    }, function (error, redirectLocation, renderProps) {
+        if (error) {
             console.log(error);
         }
-        if(renderProps) {
+        if (renderProps) {
             var html = ReactDOMServer.renderToString(
-                <RouterContext {...renderProps}
-                    createElement={function(Component, renderProps) {
-                        return <Component {...renderProps} custom={props}/>;
-                    }}/>
+                <Provider store={store}>
+                    <RouterContext {...renderProps}/>
+                </Provider>
             );
 
             that.body = html;

@@ -1,20 +1,18 @@
 import React from 'react';
+import {connect} from 'react-redux';
 
 class Layout extends React.Component {
     render() {
-        var custom = this.props.custom;
+        var main = this.props.main;
         return (
             <html>
             <head>
-                <title>{custom.title}</title>
+                <title>{main.title}</title>
             </head>
             <body>
             <div className="container-fluid">
                 {this.props.children}
             </div>
-            <script dangerouslySetInnerHTML={{
-                __html: 'window.PROPS=' + JSON.stringify(custom)
-            }}/>
             <script src="/client.js"/>
             </body>
             </html>
@@ -22,4 +20,12 @@ class Layout extends React.Component {
     }
 }
 
-module.exports = Layout;
+var wrapper = connect(
+    function (store) {
+        return {
+            main: store.main
+        }
+    }
+)
+
+export default wrapper(Layout);
