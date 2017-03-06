@@ -1,0 +1,66 @@
+@import '_variables';
+@import '_mixins';
+@import '_global';
+
+body {
+  background: #ddd;
+
+  #home {
+
+    a {
+
+      &:hover {
+        font-weight: inherit;
+      }
+    }
+
+    .thumbnail {
+      position: relative;
+      padding: 10px 10px 50px 10px;
+      text-decoration: none;
+
+      .caption {
+
+        .button-pinned {
+          position: absolute;
+          width: 100%;
+          left: 0;
+          bottom: 0;
+          height: 40px;
+          font-size: 18px;
+          line-height: 40px;
+          color: #fff;
+          border-radius: 0px 0px 4px 4px;
+          @include Transition($defaultTransition);
+
+          &.lan {
+            background: #5F84CE;
+          }
+
+          &.remote {
+            background: #446E79;
+          }
+        }
+      }
+
+      &:hover {
+
+        .caption {
+
+          .button-pinned {
+
+            &.lan {
+              background: #4C6AA5;
+            }
+
+            &.remote {
+              background: #355B66;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @import 'light';
+}

@@ -1,18 +1,27 @@
 import React from 'react';
+import {bindActionCreators} from 'redux';
 import {connect} from 'react-redux';
+import * as layoutActions from '../../server/lib/actions/layoutActions';
+
 
 class Layout extends React.Component {
     render() {
-        var main = this.props.main;
+        var layout = this.props.layout;
         return (
             <html>
             <head>
-                <title>{main.title}</title>
+                <title>{layout.title}</title>
+                <meta charSet="utf-8"/>
+                <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+                <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/latest/css/bootstrap.min.css"/>
+                <link rel="stylesheet" type="text/css" href="/css/rc-switch.css"/>
+                <link rel="stylesheet" type="text/css" href="/css/style.css"/>
             </head>
             <body>
             <div className="container-fluid">
                 {this.props.children}
             </div>
+            <script src="/socket.io/socket.io.js"></script>
             <script src="/client.js"/>
             </body>
             </html>
@@ -20,12 +29,14 @@ class Layout extends React.Component {
     }
 }
 
-var wrapper = connect(
-    function (store) {
-        return {
-            main: store.main
-        }
+function mapStateToProps(store) {
+    return {
+        layout: store.layout
     }
-)
+}
 
-export default wrapper(Layout);
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators(layoutActions, dispatch)
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Layout);

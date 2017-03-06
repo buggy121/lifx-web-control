@@ -1,0 +1,44 @@
+
+.light-wrapper {
+  background: #fff;
+  padding: 25px;
+  border-radius: 10px;
+
+  .bulb-icon {
+    width: 100%;
+    position: relative;
+
+    .icon {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+
+      background: url('/img/bulb.png');
+      background-position: 50% 50%;
+      background-size: cover;
+      background-clip: content-box;
+
+      -webkit-transition: all .3s;
+      -moz-transition: all .3s;
+      -ms-transition: all .3s;
+      -o-transition: all .3s;
+      transition: all .3s;
+
+      //.off
+      padding: 60px 60px 0px 60px;
+    }
+
+    img {
+      opacity: 0;
+    }
+
+    &.on {
+
+      .icon {
+        padding: 0px;
+      }
+    }
+  }
+}

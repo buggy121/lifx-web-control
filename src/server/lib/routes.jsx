@@ -13,13 +13,13 @@ import store from './store';
 
 var router = new Router();
 
+router.get('/api/discoverLights/:type', ErrorHandler.actionInit, function*(next) {
+
+});
+
 router.get('*', ErrorHandler.actionInit, function*(next) {
     var that = this;
     yield next;
-
-    var props = {
-        title: 'LifX Web Control'
-    }
 
     match({
         routes: clientRoutes,

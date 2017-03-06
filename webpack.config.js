@@ -2,6 +2,7 @@
  * Created by Dawid Kulpa on 14.02.2017.
  */
 
+var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
 
 var nodeModules = {};
@@ -25,13 +26,13 @@ module.exports = [
         module: {
             loaders: [
                 /*{
-                    test: /\.js$/,
-                    exclude: /node_modules/,
-                    loader: 'babel-loader',
-                    query: {
-                        presets: ['es2015']
-                    }
-                },*/
+                 test: /\.js$/,
+                 exclude: /node_modules/,
+                 loader: 'babel-loader',
+                 query: {
+                 presets: ['es2015']
+                 }
+                 },*/
                 {
                     test: /\.jsx?$/,
                     exclude: /node_modules/,
@@ -39,9 +40,31 @@ module.exports = [
                     query: {
                         presets: ['es2015', 'stage-2', 'react']
                     }
+                },
+                {
+                    test: /\.scss$/,
+                    exclude: /node_modules/,
+                    loaders: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: 'css-loader!sass-loader'
+                    })
+                },
+                {
+                    test: /\.css$/,
+                    //exclude: /node_modules/,
+                    loaders: ExtractTextPlugin.extract({
+                        fallback: 'style-loader',
+                        use: 'css-loader'
+                    })
                 }
             ]
-        }
+        },
+        plugins: [
+            new ExtractTextPlugin({
+                filename: './css/style.css',
+                allChunks: true
+            })
+        ]
     },
     {
         target: 'node',
@@ -70,7 +93,12 @@ module.exports = [
                     query: {
                         presets: ['es2015', 'stage-2', 'react']
                     }
-                }
+                },
+                {
+                 test: /\.scss$/,
+                 exclude: /node_modules/,
+                 loaders: ['style-loader', 'css-loader', 'sass-loader'],
+                 }
             ]
         }
     }

@@ -4,8 +4,10 @@
 
 import {combineReducers} from 'redux';
 
-import main from './mainReducer';
+import layout from './layoutReducer';
+import light from './lightReducer';
 
 export default combineReducers({
-    main,
+    layout,
+    light
 });
