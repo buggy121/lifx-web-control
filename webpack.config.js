@@ -4,6 +4,7 @@
 
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
 var fs = require('fs');
+var path = require('path');
 
 var nodeModules = {};
 fs.readdirSync('node_modules')
@@ -20,7 +21,7 @@ module.exports = [
             client: ['./src/client/client.js'],
         },
         output: {
-            path: './dist/client',
+            path: path.resolve(__dirname, 'dist/client'),
             filename: '[name].js'
         },
         module: {
@@ -72,7 +73,7 @@ module.exports = [
         output: {
             library: 'srv',
             libraryTarget: 'commonjs2',
-            path: './dist/server',
+            path: path.resolve(__dirname, 'dist/server'),
             filename: 'server.js'
         },
         externals: nodeModules,
